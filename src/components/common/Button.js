@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
 const Button = ({ onPress, children }) => {
-const { buttonStyle, textStyle } = styles;
+  const { buttonStyle, textStyle } = styles;
   return (
     <TouchableOpacity onPress={onPress} style={buttonStyle}>
       <Text style={textStyle}>{children}</Text>
@@ -16,7 +16,7 @@ const styles = {
     color: 'white',
     fontSize: 18,
     fontWeight: '600',
-    fontFamily: "Montserrat",
+    fontFamily: 'Montserrat',
     paddingTop: 10,
     paddingBottom: 10
   },
@@ -31,6 +31,5 @@ const styles = {
     marginRight: 5
   }
 };
-
 
 export { Button };

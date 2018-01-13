@@ -18,24 +18,23 @@ class LibraryList extends Component {
     // will be rendered with
     // this.props is still the old set of props
     this.createDataSource(nextProps);
-}
+  }
 
   createDataSource({ evs }) {
-  const ds = new ListView.DataSource({
-    rowHasChanged: (r1, r2) => r1 !== r2
-  });
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
 
-  this.dataSource = ds.cloneWithRows(evs);
-}
+    this.dataSource = ds.cloneWithRows(evs);
+  }
 
   renderRow(ev) {
     return <ListItem ev={ev} />;
   }
 
   render() {
-    if(this.props.isLoading)
-    {
-        return (<Spinner />)
+    if (this.props.isLoading) {
+      return <Spinner />;
     }
     return (
       <ListView
@@ -48,14 +47,13 @@ class LibraryList extends Component {
 }
 
 const mapStateToProps = state => {
-
-  return { evs: state.evs.evs,isLoading: state.evs.isLoading };
+  return { evs: state.evs.evs, isLoading: state.evs.isLoading };
 };
 
 const mapDispatchToProps = dispatch => {
-	return {
-		evsGet: () => dispatch(evsGet())
-	};
+  return {
+    evsGet: () => dispatch(evsGet())
+  };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(LibraryList);
+export default connect(mapStateToProps, mapDispatchToProps)(LibraryList);

@@ -11,14 +11,14 @@ import LoginForm from './components/login/LoginForm';
 const RouterComponent = () => {
   return (
     <Router>
-      <Scene key="asd" hideNavBar="true">
+      <Scene key="asd">
         <Scene key="Home" component={Home} title="Home" initial />
         <Scene
-        key="signin"
-        component={LoginForm}
-        title="Login"
-        onRight={() => Actions.evcreate()}
-        rightTitle="Sign Up"
+          key="signin"
+          component={LoginForm}
+          title="Login"
+          onRight={() => Actions.evcreate()}
+          rightTitle="Sign Up"
         />
         <Scene
           onRight={() => Actions.evcreate()}
@@ -31,7 +31,7 @@ const RouterComponent = () => {
         <Scene key="evcreate" component={EvCreate} title="Create an ev" />
         <Scene key="evEdit" component={EvEdit} title="Edit an ev" />
         <Scene key="evPicture" component={EvPicture} title="Add a picture" />
-        <Scene key="eventAgenda" component={EventAgenda}  />
+        <Scene key="eventAgenda" component={EventAgenda} />
       </Scene>
     </Router>
   );

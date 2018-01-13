@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import { evUpdate, evCreate } from '../../../actions';
 import { Card, CardSection, Button } from '../../common';
 import EvForm from './EvForm';
-import { Actions } from 'react-native-router-flux';
 
 class EvCreate extends Component {
-
   onButtonPress() {
     const { title, description, eventDate } = this.props;
     this.props.evCreate({ title, description, eventDate });
@@ -16,21 +14,17 @@ class EvCreate extends Component {
       <Card>
         <EvForm {...this.props} />
         <CardSection>
-          <Button onPress={this.onButtonPress.bind(this)}>
-            Create
-          </Button>
+          <Button onPress={this.onButtonPress.bind(this)}>Create</Button>
         </CardSection>
       </Card>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { title, description, eventDate } = state.evForm;
 
   return { title, description, eventDate };
 };
 
-export default connect(mapStateToProps,
-  { evUpdate, evCreate }
-)(EvCreate);
+export default connect(mapStateToProps, { evUpdate, evCreate })(EvCreate);

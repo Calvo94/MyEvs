@@ -5,6 +5,6 @@ import AuthReducer from './AuthReducer';
 
 export default combineReducers({
   evs: EvReducer,
-  evForm : EvFormReducer,
+  evForm: EvFormReducer,
   auth: AuthReducer
 });
