@@ -31,7 +31,7 @@ const RouterComponent = () => {
         <Scene key="evcreate" component={EvCreate} title="Create an ev" />
         <Scene key="evEdit" component={EvEdit} title="Edit an ev" />
         <Scene key="evPicture" component={EvPicture} title="Add a picture" />
-        <Scene key="eventAgenda" component={EventAgenda} />
+        <Scene key="eventAgenda" title="Agenda" component={EventAgenda} />
       </Scene>
     </Router>
   );
