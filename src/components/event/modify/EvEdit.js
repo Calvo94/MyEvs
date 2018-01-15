@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Card, CardSection, Button, Confirm } from '../../common';
 import { evUpdate, evSave, evDelete, evValidate } from '../../../actions';
 import EvForm from './EvForm';
-import { Actions } from 'react-native-router-flux';
 
 class EvEdit extends Component {
   constructor(props) {
@@ -65,7 +64,7 @@ class EvEdit extends Component {
         <CardSection>
           <Button
             onPress={() =>
-              Actions.evPicture({
+              this.props.navigation.navigate('EvDesc', {
                 imgbase64: this.props.ev.imgbase64,
                 _id: this.props.ev._id
               })

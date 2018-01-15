@@ -23,7 +23,6 @@
     "react-native-linear-gradient": "^2.4.0",
     "react-native-modal-datetime-picker": "^4.13.0",
     "react-native-photo-upload": "^1.1.1",
-    "react-native-router-flux": "^4.0.0-beta.25",
     "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-star-rating": "^1.0.8",
     "react-navigation": "^1.0.0-beta.25",

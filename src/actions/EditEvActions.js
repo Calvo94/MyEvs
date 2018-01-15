@@ -1,6 +1,6 @@
 import * as types from './types';
 import axios from 'axios';
-import { Actions } from 'react-native-router-flux';
+import { NavigationActions } from 'react-navigation';
 
 function receiveError() {
   return {
@@ -16,7 +16,7 @@ export function evValidate({ _id }) {
       .post(URL)
       .then(() => {
         dispatch({ type: types.EV_VALIDATE_SUCESS });
-        Actions.evList({ type: 'reset' });
+        dispatch(NavigationActions.navigate({ routeName: 'HomeApp' }));
       })
       .catch(() => {
         dispatch(receiveError());
@@ -28,7 +28,11 @@ export function evDelete({ _id }) {
   const URL = `http://151.80.61.102:3000/api/ev/${_id}/delete`;
   return dispatch => {
     dispatch({ types: types.SEND_REQ_EV });
-    return axios.delete(URL).then(() => Actions.main({ type: 'reset' }));
+    return axios
+      .delete(URL)
+      .then(() =>
+        dispatch(NavigationActions.navigate({ routeName: 'HomeApp' }))
+      );
   };
 }
 
@@ -44,7 +48,7 @@ export function evSave({ title, description, eventDate, _id }) {
       })
       .then(() => {
         dispatch({ type: types.EV_SAVE_SUCESS });
-        Actions.main({ type: 'reset' });
+        dispatch(NavigationActions.navigate({ routeName: 'HomeApp' }));
       })
       .catch(() => {
         dispatch(receiveError());
@@ -61,7 +65,7 @@ export function evPicture({ imgbase64, _id }) {
       })
       .then(() => {
         dispatch({ type: types.EV_SAVE_SUCESS });
-        Actions.main({ type: 'reset' });
+        dispatch(NavigationActions.navigate({ routeName: 'HomeApp' }));
       })
       .catch(() => {
         dispatch(receiveError());
@@ -88,7 +92,9 @@ export function evCreate({ title, description, eventDate }) {
       })
       .then(res => {
         dispatch({ type: types.EV_SAVE_SUCESS });
-        Actions.evPicture({ _id: res.data.ev._id });
+        dispatch(
+          NavigationActions.navigate({ routeName: 'EvPicture', params: res })
+        );
       })
       .catch(() => {
         dispatch(receiveError());

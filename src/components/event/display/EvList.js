@@ -29,7 +29,7 @@ class LibraryList extends Component {
   }
 
   renderRow(ev) {
-    return <ListItem ev={ev} />;
+    return <ListItem ev={ev} navigation={this.props.navigation} />;
   }
 
   render() {
@@ -40,7 +40,7 @@ class LibraryList extends Component {
       <ListView
         enableEmptySections
         dataSource={this.dataSource}
-        renderRow={this.renderRow}
+        renderRow={this.renderRow.bind(this)}
       />
     );
   }

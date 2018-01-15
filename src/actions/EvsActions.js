@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as types from './types';
-import { Actions } from 'react-native-router-flux';
+import { NavigationActions } from 'react-navigation';
 
 export const evSelect = evId => {
   return {
@@ -48,7 +48,7 @@ export function evRate({ note, _id }) {
       })
       .then(() => {
         dispatch({ type: types.EV_SAVE_SUCESS });
-        Actions.main({ type: 'reset' });
+        dispatch(NavigationActions.navigate({ routeName: 'HomeApp' }));
       })
       .catch(() => dispatch(receiveError()));
   };

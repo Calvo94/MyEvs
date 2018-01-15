@@ -100,7 +100,9 @@ class LoginForm extends Component {
             label="Full Name"
             onChangeText={this.onNameChange.bind(this)}
             value={this.props.name}
-          />
+          >
+            said mansouri
+          </Input>
         </CardSection>
         {this.renderusrerr()}
         <CardSection>
@@ -109,7 +111,9 @@ class LoginForm extends Component {
             onChangeText={this.onEmailChange.bind(this)}
             placeholder="myemail@gmail.com"
             value={this.props.email}
-          />
+          >
+            saiidma@gmail.com
+          </Input>
         </CardSection>
         {this.renderemailerr()}
         <Text style={styles.errorTextStyle}>{this.props.error}</Text>

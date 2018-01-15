@@ -1,14 +1,28 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from './reducers';
-import Router from './Router';
+import { addNavigationHelpers } from 'react-navigation';
+import { HomeApp } from './config/routes';
 
-const App = () => (
-  <Provider store={createStore(reducers, {}, compose(applyMiddleware(thunk)))}>
-    <Router />
-  </Provider>
+const MyApp = ({ dispatch, nav }) => (
+  <HomeApp
+    navigation={addNavigationHelpers({
+      dispatch,
+      state: nav
+    })}
+  />
 );
 
-export default App;
+const mapStateToProps = state => ({
+  nav: state.nav
+});
+
+const AppWithNavigation = connect(mapStateToProps)(MyApp);
+
+export default () => (
+  <Provider store={createStore(reducers, {}, compose(applyMiddleware(thunk)))}>
+    <AppWithNavigation />
+  </Provider>
+);

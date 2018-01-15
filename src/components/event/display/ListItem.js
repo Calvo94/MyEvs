@@ -3,7 +3,6 @@ import { Text, View, LayoutAnimation, UIManager, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { CardSection, Button, Card, Row } from '../../common';
 import * as actions from '../../../actions';
-import { Actions } from 'react-native-router-flux';
 import StarRating from 'react-native-star-rating';
 
 class ListItem extends Component {
@@ -20,7 +19,7 @@ class ListItem extends Component {
     }
   }
   onUpdatePress() {
-    Actions.evEdit({ ev: this.props.ev });
+    //
   }
   onValidatePress() {
     this.props.evValidate({ _id: this.props.ev._id });
@@ -123,14 +122,15 @@ class ListItem extends Component {
   }
 
   render() {
-    const { _id, title, imgbase64 } = this.props.ev;
+    const { navigate } = this.props.navigation;
+    const { title, imgbase64 } = this.props.ev;
     const user = 'admin';
     return (
       <Row
         img={imgbase64}
         name={title}
         author={user}
-        onPress={() => this.props.evSelect(_id)}
+        onPress={() => navigate('EvDesc', this.props.ev)}
       >
         <View>{this.renderDescription()}</View>
       </Row>

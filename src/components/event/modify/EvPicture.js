@@ -4,7 +4,6 @@ import PhotoUpload from 'react-native-photo-upload';
 import { CardSection, Button } from '../../common';
 import { evPicture } from '../../../actions';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 
 class EvPicture extends Component {
   constructor(props) {
@@ -22,7 +21,7 @@ class EvPicture extends Component {
       });
   }
   onSkipPress() {
-    Actions.main({ type: 'reset' });
+    this.props.navigation.navigate('HomeApp');
   }
   img() {
     if (this.props.imgbase64) {

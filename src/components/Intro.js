@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AppIntroSlider from 'react-native-app-intro-slider';
@@ -17,23 +17,25 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.8)',
     backgroundColor: 'transparent',
     textAlign: 'center',
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
+    fontSize: 16,
+    fontFamily: 'Montserrat-Medium'
   },
   title: {
-    fontSize: 22,
+    fontSize: 25,
     color: 'white',
     backgroundColor: 'transparent',
     textAlign: 'center',
-    marginBottom: 16
+    marginBottom: 16,
+    fontFamily: 'Montserrat-Medium'
   }
 });
 
 const slides = [
   {
     key: 'somethun',
-    title: 'Quick setup, good defaults',
-    text:
-      'React-native-app-intro-slider is easy to setup with a small footprint and no dependencies. And it comes with good default layouts!',
+    title: 'My Evs !!!',
+    text: 'Welcome to MyEvs! An App where you can find all your events',
     icon: 'ios-images-outline',
     colors: ['#63E2FF', '#B066FE']
   },
@@ -54,7 +56,7 @@ const slides = [
   }
 ];
 
-export default class Intro extends React.Component {
+export default class Intro extends Component {
   _renderItem(props) {
     return (
       <LinearGradient
@@ -78,10 +80,13 @@ export default class Intro extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <AppIntroSlider
         slides={slides}
         renderItem={this._renderItem}
+        onDone={() => navigate('SignIn')}
+        onSkip={() => navigate('SignIn')}
         bottomButton
         showSkipButton
       />

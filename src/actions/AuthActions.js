@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as types from './types';
-import { Actions } from 'react-native-router-flux';
+import { NavigationActions } from 'react-navigation';
 
 export const emailChanged = text => {
   return {
@@ -27,7 +27,7 @@ export const loginUser = ({ email, name }) => {
       })
       .then(() => {
         dispatch(loginUserSuccess());
-        Actions.Home();
+        dispatch(NavigationActions.navigate({ routeName: 'HomeApp' }));
       })
       .catch(() => {
         dispatch(loginUserFail());

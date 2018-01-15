@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { evsGet } from '../../../actions';
 import { Row } from '../../common';
 
-
 class EventAgenda extends Component {
   constructor(props) {
     super(props);
@@ -47,14 +46,15 @@ class EventAgenda extends Component {
   }
 
   renderItem(item) {
-    const { _id, title, imgbase64 } = item;
+    const { navigate } = this.props.navigation;
+    const { title, imgbase64 } = item;
     const user = 'admin';
     return (
       <Row
         img={imgbase64}
         name={title}
         author={user}
-        onPress={() => this.props.evSelect(_id)}
+        onPress={() => navigate('EvDesc', item)}
       />
     );
   }

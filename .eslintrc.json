@@ -34,7 +34,8 @@
             "always"
         ],
         "react/prop-types": [ 0 ],
-        "no-useless-escape": [ 0 ]
+        "no-useless-escape": [ 0 ],
+        "react/display-name": [ 0 ]
 
     }
 }
