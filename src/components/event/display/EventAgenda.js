@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Spinner } from '../../common';
 import { Agenda } from 'react-native-calendars';
 import { connect } from 'react-redux';
@@ -75,15 +75,29 @@ class EventAgenda extends Component {
     if (this.props.isLoading) {
       return <Spinner />;
     }
-
+    const { navigate } = this.props.navigation;
     return (
-      <Agenda
-        items={this.state.items}
-        loadItemsForMonth={this.loadItems.bind(this)}
-        renderItem={this.renderItem.bind(this)}
-        renderEmptyDate={this.renderEmptyDate.bind(this)}
-        rowHasChanged={this.rowHasChanged.bind(this)}
-      />
+      <View style={{ flex: 1 }}>
+        <Agenda
+          items={this.state.items}
+          loadItemsForMonth={this.loadItems.bind(this)}
+          renderItem={this.renderItem.bind(this)}
+          renderEmptyDate={this.renderEmptyDate.bind(this)}
+          rowHasChanged={this.rowHasChanged.bind(this)}
+        />
+        <View style={styles.container}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigate('CreateEv')}
+          >
+            <Image
+              resizeMode="contain"
+              source={require('../../../../assets/img/add_red.png')}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 }
@@ -101,6 +115,18 @@ const styles = StyleSheet.create({
     height: 15,
     flex: 1,
     paddingTop: 30
+  },
+  container: {
+    position: 'absolute',
+    left: 0,
+    right: 5,
+    bottom: -40
+  },
+  button: {
+    alignSelf: 'flex-end'
+  },
+  icon: {
+    width: 50
   }
 });
 

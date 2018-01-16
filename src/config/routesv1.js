@@ -1,4 +1,8 @@
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import {
+  StackNavigator,
+  TabNavigator,
+  DrawerNavigator
+} from 'react-navigation';
 import Intro from '../components/Intro'; //I
 import EvList from '../components/event/display/EvList'; //L
 import EventAgenda from '../components/event/display/EventAgenda'; //A
@@ -7,7 +11,7 @@ import LoginForm from '../components/login/LoginForm'; //LOGIN
 import EvCreate from '../components/event/modify/EvCreate'; //C
 import EvPicture from '../components/event/modify/EvPicture'; //P
 
-export const DisplayListev = StackNavigator(
+export const DisplayListev = DrawerNavigator(
   {
     Listev: {
       screen: EvList
@@ -21,7 +25,7 @@ export const DisplayListev = StackNavigator(
   }
 );
 
-export const DisplayAgendaev = StackNavigator(
+export const DisplayAgendaev = DrawerNavigator(
   {
     EventAgenda: {
       screen: EventAgenda

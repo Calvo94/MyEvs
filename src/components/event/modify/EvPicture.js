@@ -2,26 +2,13 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import PhotoUpload from 'react-native-photo-upload';
 import { CardSection, Button } from '../../common';
-import { evPicture } from '../../../actions';
+import { evUpdate, evCreate } from '../../../actions';
 import { connect } from 'react-redux';
 
 class EvPicture extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      avatar: '',
-      uploaded: false
-    };
-  }
   onValidatePress() {
-    if (this.state.uploaded)
-      this.props.evPicture({
-        imgbase64: this.state.avatar,
-        _id: this.props._id
-      });
-  }
-  onSkipPress() {
-    this.props.navigation.navigate('HomeApp');
+    const { title, description, eventDate, imgbase64 } = this.props;
+    this.props.evCreate({ title, description, eventDate, imgbase64 });
   }
   img() {
     if (this.props.imgbase64) {
@@ -59,19 +46,23 @@ class EvPicture extends Component {
   render() {
     return (
       <PhotoUpload
-        onPhotoSelect={avatar => {
-          if (avatar) {
-            this.setState({ avatar, uploaded: true });
+        onPhotoSelect={value => {
+          if (value) {
+            this.props.evUpdate({ prop: 'imgbase64', value });
           }
         }}
       >
         {this.img()}
         <CardSection>
-          <Button onPress={this.onValidatePress.bind(this)}>Upload</Button>
-          <Button onPress={this.onSkipPress.bind(this)}>Skip</Button>
+          <Button onPress={this.onValidatePress.bind(this)}>Create Event</Button>
         </CardSection>
       </PhotoUpload>
     );
   }
 }
-export default connect(null, { evPicture })(EvPicture);
+const mapStateToProps = state => {
+  const { title, description, eventDate, imgbase64 } = state.evForm;
+
+  return { title, description, eventDate, imgbase64 };
+};
+export default connect(mapStateToProps, { evUpdate, evCreate })(EvPicture);

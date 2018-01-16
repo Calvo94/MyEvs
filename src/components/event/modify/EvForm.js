@@ -60,7 +60,7 @@ class EvForm extends Component {
         </CardSection>
         <DateTimePicker
           isVisible={this.state.isDateTimePickerVisible}
-          onConfirm={this._handleDatePicked}
+          onConfirm={this._handleDatePicked.bind(this)}
           onCancel={this._hideDateTimePicker}
           mode="datetime"
         />

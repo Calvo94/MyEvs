@@ -24,33 +24,26 @@ export const CreateEv = TabNavigator({
   },
   EvPicture: {
     screen: EvPicture
-  },
-  EvDescC: {
-    screen: EvDesc
   }
 });
 
-export const DisplayEv = StackNavigator(
-  {
-    //3
 
-    DisplayEvs: {
-      screen: DisplayEvs,
-      navigationOptions: {
-        header: null
-      }
-    },
-    EvDesc: {
-      screen: EvDesc,
-      navigationOptions: ({ navigation }) => ({
-        headerTitle: navigation.state.params.title
-      })
+export const DisplayEv = StackNavigator({
+  //3
+
+  DisplayEvs: {
+    screen: DisplayEvs,
+    navigationOptions: {
+      header: null
     }
   },
-  {
-    mode: 'modal'
+  EvDesc: {
+    screen: EvDesc,
+    navigationOptions: ({ navigation }) => ({
+      headerTitle: navigation.state.params.title
+    })
   }
-);
+});
 
 export const HomeApp = StackNavigator({
   //4

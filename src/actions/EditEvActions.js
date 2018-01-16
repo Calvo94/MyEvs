@@ -80,7 +80,7 @@ export function evUpdate({ prop, value }) {
   };
 }
 
-export function evCreate({ title, description, eventDate }) {
+export function evCreate({ title, description, eventDate, imgbase64 }) {
   const URL = 'http://151.80.61.102:3000/api/ev/';
   return dispatch => {
     dispatch({ type: types.SEND_REQ_EV });
@@ -88,13 +88,12 @@ export function evCreate({ title, description, eventDate }) {
       .post(URL, {
         title,
         description,
-        eventDate
+        eventDate,
+        imgbase64
       })
-      .then(res => {
+      .then(() => {
         dispatch({ type: types.EV_SAVE_SUCESS });
-        dispatch(
-          NavigationActions.navigate({ routeName: 'EvPicture', params: res })
-        );
+        dispatch(NavigationActions.navigate({ routeName: 'DisplayEv' }));
       })
       .catch(() => {
         dispatch(receiveError());

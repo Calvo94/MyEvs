@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { ListView } from 'react-native';
+import {
+  ListView,
+  TouchableOpacity,
+  View,
+  Image,
+  StyleSheet
+} from 'react-native';
 import { connect } from 'react-redux';
 import ListItem from './ListItem';
 import { evsGet } from '../../../actions';
@@ -36,15 +42,46 @@ class LibraryList extends Component {
     if (this.props.isLoading) {
       return <Spinner />;
     }
+
+    const { navigate } = this.props.navigation;
     return (
-      <ListView
-        enableEmptySections
-        dataSource={this.dataSource}
-        renderRow={this.renderRow.bind(this)}
-      />
+      <View>
+        <ListView
+          enableEmptySections
+          dataSource={this.dataSource}
+          renderRow={this.renderRow.bind(this)}
+        />
+        <View style={styles.container}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigate('CreateEv')}
+          >
+            <Image
+              resizeMode="contain"
+              source={require('../../../../assets/img/add_red.png')}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    left: 0,
+    right: 5,
+    bottom: -40
+  },
+  button: {
+    alignSelf: 'flex-end'
+  },
+  icon: {
+    width: 50
+  }
+});
 
 const mapStateToProps = state => {
   return { evs: state.evs.evs, isLoading: state.evs.isLoading };

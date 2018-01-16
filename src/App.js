@@ -4,10 +4,10 @@ import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from './reducers';
 import { addNavigationHelpers } from 'react-navigation';
-import { HomeApp } from './config/routes';
+import { Root } from './config/routes';
 
 const MyApp = ({ dispatch, nav }) => (
-  <HomeApp
+  <Root
     navigation={addNavigationHelpers({
       dispatch,
       state: nav

@@ -5,7 +5,8 @@ const INITIAL_STATE = {
   error: false,
   title: '',
   description: '',
-  eventDate: ''
+  eventDate: '',
+  imgbase64: ''
 };
 
 export default (state = INITIAL_STATE, action) => {

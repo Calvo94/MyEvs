@@ -5,16 +5,22 @@ import { Card, CardSection, Button } from '../../common';
 import EvForm from './EvForm';
 
 class EvCreate extends Component {
-  onButtonPress() {
-    const { title, description, eventDate } = this.props;
-    this.props.evCreate({ title, description, eventDate });
+  onNextPress() {
+    this.props.navigation.navigate('EvPicture');
   }
+  onCancelPress() {
+    this.props.navigation.navigate('DisplayEv');
+  }
+
   render() {
     return (
       <Card>
         <EvForm {...this.props} />
         <CardSection>
-          <Button onPress={this.onButtonPress.bind(this)}>Create</Button>
+          <Button onPress={this.onNextPress.bind(this)}>Next</Button>
+        </CardSection>
+        <CardSection>
+          <Button onPress={this.onCancelPress.bind(this)}>Cancel</Button>
         </CardSection>
       </Card>
     );
