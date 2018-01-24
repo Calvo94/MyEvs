@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  AsyncStorage
+} from 'react-native';
 import { Spinner } from '../../common';
 import { Agenda } from 'react-native-calendars';
 import { connect } from 'react-redux';
@@ -12,10 +19,6 @@ class EventAgenda extends Component {
     this.state = {
       items: {}
     };
-  }
-
-  componentWillMount() {
-    this.props.evsGet();
   }
 
   timeToString(time) {
@@ -85,7 +88,7 @@ class EventAgenda extends Component {
           renderEmptyDate={this.renderEmptyDate.bind(this)}
           rowHasChanged={this.rowHasChanged.bind(this)}
         />
-        <View style={styles.container}>
+        <View style={styles.containerRight}>
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigate('CreateEv')}
@@ -93,6 +96,34 @@ class EventAgenda extends Component {
             <Image
               resizeMode="contain"
               source={require('../../../../assets/img/add_red.png')}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.containerLeft}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              AsyncStorage.removeItem('email').then(() => navigate('SignIn'));
+            }}
+          >
+            <Image
+              resizeMode="contain"
+              source={require('../../../../assets/img/Logout.png')}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.containerAct}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              this.props.evsGet();
+            }}
+          >
+            <Image
+              resizeMode="contain"
+              source={require('../../../../assets/img/act.png')}
               style={styles.icon}
             />
           </TouchableOpacity>
@@ -116,11 +147,20 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 30
   },
-  container: {
+  containerRight: {
     position: 'absolute',
-    left: 0,
     right: 5,
-    bottom: -40
+    bottom: 0
+  },
+  containerLeft: {
+    position: 'absolute',
+    left: 5,
+    bottom: 0
+  },
+  containerAct: {
+    position: 'absolute',
+    left: 5,
+    top: 0
   },
   button: {
     alignSelf: 'flex-end'

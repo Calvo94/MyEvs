@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "54657847124",
+    "project_id": "myevs-1516757547200"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54657847124:android:9f42c395c2cead35",
+        "android_client_info": {
+          "package_name": "com.myevs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54657847124-iigjmu4f8m2ce2ks5ncfador0vg99oq3.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "54657847124-jhue9td5tdlujche38n7gc6ndghq4m2r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myevs",
+            "certificate_hash": "6dd2d2279c45116a98df2e1c7a976f987aed5d3c"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC67HZRjL6ZN6eiWVE7DbzceZ1beGpT8rY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

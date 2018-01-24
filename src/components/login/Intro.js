@@ -82,14 +82,15 @@ export default class Intro extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <AppIntroSlider
-        slides={slides}
-        renderItem={this._renderItem}
-        onDone={() => navigate('SignIn')}
-        onSkip={() => navigate('SignIn')}
-        bottomButton
-        showSkipButton
-      />
+      <View style={{flex:1}}>
+        <AppIntroSlider
+          slides={slides}
+          renderItem={this._renderItem}
+          onDone={() => navigate('SignIn')}
+          onSkip={() => navigate('SignIn')}
+        />
+        <Text>asdalsjdhlaskd asd asd asd </Text>
+      </View>
     );
   }
 }

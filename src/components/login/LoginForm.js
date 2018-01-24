@@ -1,142 +1,172 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { CardSection, Input, Spinner } from '../common';
-import {
-  FormValidationMessage,
-  Card,
-  Button,
-  SocialIcon
-} from 'react-native-elements';
-import { emailChanged, nameChanged, loginUser } from '../../actions';
+import { CardSection } from '../common';
+import { LoginManager, AccessToken } from 'react-native-fbsdk';
+import { SocialIcon } from 'react-native-elements';
+import { loginUser } from '../../actions';
+import { GoogleSignin } from 'react-native-google-signin';
+import { StyleSheet, View, Text } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import AppIntroSlider from 'react-native-app-intro-slider';
+
+
+
+const styles = StyleSheet.create({
+  mainContent: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around'
+  },
+  image: {
+    width: 320,
+    height: 320
+  },
+  text: {
+    color: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    paddingHorizontal: 16,
+    fontSize: 16,
+    fontFamily: 'Montserrat-Medium'
+  },
+  title: {
+    fontSize: 25,
+    color: 'white',
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    marginBottom: 16,
+    fontFamily: 'Montserrat-Medium'
+  }
+});
+
+const slides = [
+  {
+    key: 'somethun',
+    title: 'My Evs !!!',
+    text: 'Welcome to MyEvs! An App where you can find all your events',
+    icon: 'ios-images-outline',
+    colors: ['#63E2FF', '#B066FE']
+  },
+  {
+    key: 'somethun1',
+    title: 'Super customizable',
+    text:
+      'The component is also super customizable, so you can adapt it to cover your needs and wants.',
+    icon: 'ios-options-outline',
+    colors: ['#A3A1FF', '#3A3897']
+  },
+  {
+    key: 'somethun2',
+    title: 'No need to buy me beer',
+    text: 'Usage is all free',
+    icon: 'ios-beer-outline',
+    colors: ['#29ABE2', '#4F00BC']
+  }
+];
 
 class LoginForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fbloading: false
-    };
-  }
-  onNameChange(text) {
-    this.props.nameChanged(text);
-  }
 
-  onEmailChange(text) {
-    this.props.emailChanged(text);
-  }
-  onButtonPress() {
-    const { email, name } = this.props;
-    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-    if (name.length > 6 && reg.test(email)) {
-      this.props.loginUser({ email, name });
-    }
-  }
-  onFbPress() {
-    this.setState({ fbloading: !this.state.fbloading });
-  }
-  renderButton() {
-    if (this.props.loading) {
-      return <Spinner size="large" />;
-    }
+  _renderItem(props) {
     return (
-      <View>
-        <CardSection>
-          <Button
-            raised
-            onPress={this.onButtonPress.bind(this)}
-            buttonStyle={{
-              backgroundColor: 'black',
-              borderRadius: 10,
-              padding: 10
-            }}
-            textStyle={{
-              textAlign: 'center',
-              fontSize: 17,
-              fontFamily: 'Montserrat'
-            }}
-            title={'Sign In'}
-            loading={this.props.loading}
-          />
-        </CardSection>
-        <CardSection>
-          <SocialIcon
-            title="Sign In With Facebook"
-            button
-            onPress={this.onFbPress.bind(this)}
-            type="facebook"
-            fontFamily="Montserrat"
-            style={{ padding: 10 }}
-            loading={this.props.loading}
-          />
-        </CardSection>
-        <CardSection>
-          <SocialIcon
-            title="Sign In With Google"
-            button
-            type="google-plus-official"
-            fontFamily="Montserrat"
-            style={{ padding: 10 }}
-            loading={this.props.loading}
-          />
-        </CardSection>
-      </View>
+      <LinearGradient
+        style={[
+          styles.mainContent,
+          {
+            paddingTop: props.topSpacer,
+            paddingBottom: props.bottomSpacer
+          }
+        ]}
+        colors={props.colors}
+        start={{ x: 0, y: 0.1 }}
+        end={{ x: 0.1, y: 1 }}
+      >
+        <View>
+          <Text style={styles.title}>{props.title}</Text>
+          <Text style={styles.text}>{props.text}</Text>
+        </View>
+      </LinearGradient>
     );
   }
-  renderusrerr() {
-    if (this.props.name.length < 6 && this.props.name.length > 0)
-      return <FormValidationMessage>Name is too short</FormValidationMessage>;
+
+  onFbPress() {
+    LoginManager.logInWithReadPermissions(['public_profile']).then(
+      function(result) {
+        if (result.isCancelled) {
+          alert('Login cancelled');
+        } else {
+          AccessToken.getCurrentAccessToken().then(token => {
+            this.props.loginUser({
+              token: token.accessToken,
+              provider: 'facebook'
+            });
+          });
+        }
+      },
+      function(error) {
+        alert('Login fail with error: ' + error);
+      }
+    );
   }
-  renderemailerr() {
-    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-    if (!reg.test(this.props.email) && this.props.email.length > 0)
-      return <FormValidationMessage>email is not valid</FormValidationMessage>;
+  onGooglePress() {
+    GoogleSignin.configure({}).then(() => {
+      GoogleSignin.signIn()
+        .then(token => {
+          // alert(JSON.stringify(token));
+          this.props.loginUser({
+            token: token.accessToken,
+            provider: 'google'
+          });
+        })
+        .catch(err => {
+          alert(err);
+        })
+        .done();
+    });
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
-      <Card>
-        <CardSection>
-          <Input
-            label="Full Name"
-            onChangeText={this.onNameChange.bind(this)}
-            value={this.props.name}
-          >
-            said mansouri
-          </Input>
-        </CardSection>
-        {this.renderusrerr()}
-        <CardSection>
-          <Input
-            label="email"
-            onChangeText={this.onEmailChange.bind(this)}
-            placeholder="myemail@gmail.com"
-            value={this.props.email}
-          >
-            saiidma@gmail.com
-          </Input>
-        </CardSection>
-        {this.renderemailerr()}
-        <Text style={styles.errorTextStyle}>{this.props.error}</Text>
-        {this.renderButton()}
-      </Card>
+      <View style={{flex:1}}>
+        <View style={{flex:3}}>
+          <AppIntroSlider
+            slides={slides}
+            renderItem={this._renderItem}
+            onDone={() => navigate('SignIn')}
+            onSkip={() => navigate('SignIn')}
+          />
+        </View>
+        <View style={{flex:1}}>
+          <CardSection>
+            <SocialIcon
+              title="Sign In With Facebook"
+              button
+              onPress={this.onFbPress.bind(this)}
+              type="facebook"
+              fontFamily="Montserrat"
+              style={{ padding: 10 }}
+              loading={this.props.loading}
+            />
+          </CardSection>
+          <CardSection>
+            <SocialIcon
+              title="Sign In With Google"
+              button
+              type="google-plus-official"
+              fontFamily="Montserrat"
+              style={{ padding: 10 }}
+              loading={this.props.loading}
+              onPress={this.onGooglePress.bind(this)}
+            />
+          </CardSection>
+        </View>
+      </View>
     );
   }
 }
 
-const styles = {
-  errorTextStyle: {
-    fontSize: 20,
-    alignSelf: 'center',
-    color: 'red'
-  }
-};
-
 const mapStateToProps = ({ auth }) => {
-  const { email, name, error, loading } = auth;
-  return { email, name, error, loading };
+  const { loading } = auth;
+  return { loading };
 };
-export default connect(mapStateToProps, {
-  emailChanged,
-  nameChanged,
-  loginUser
-})(LoginForm);
+export default connect(mapStateToProps, {loginUser})(LoginForm);

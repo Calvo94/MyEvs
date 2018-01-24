@@ -1,7 +1,7 @@
 import * as types from '../actions/types';
 
 const INITIAL_STATE = {
-  email: '',
+  data: {},
   name: '',
   user: null,
   error: '',
@@ -17,7 +17,7 @@ export default (state = INITIAL_STATE, action) => {
   case types.LOGIN_USER:
     return { ...state, loading: true, error: '' };
   case types.LOGIN_USER_SUCCESS:
-    return { ...state, ...INITIAL_STATE, user: action.payload };
+    return { ...state, ...INITIAL_STATE, data: action.payload };
   case types.LOGIN_USER_FAIL:
     return {
       ...state,

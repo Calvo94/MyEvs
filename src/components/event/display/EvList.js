@@ -4,7 +4,8 @@ import {
   TouchableOpacity,
   View,
   Image,
-  StyleSheet
+  StyleSheet,
+  AsyncStorage
 } from 'react-native';
 import { connect } from 'react-redux';
 import ListItem from './ListItem';
@@ -13,9 +14,14 @@ import { evsGet } from '../../../actions';
 import { Spinner } from '../../common';
 
 class LibraryList extends Component {
-  componentWillMount() {
-    this.props.evsGet();
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: ''
+    };
+  }
 
+  componentWillMount() {
     this.createDataSource(this.props);
   }
 
@@ -45,13 +51,13 @@ class LibraryList extends Component {
 
     const { navigate } = this.props.navigation;
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <ListView
           enableEmptySections
           dataSource={this.dataSource}
           renderRow={this.renderRow.bind(this)}
         />
-        <View style={styles.container}>
+        <View style={styles.containerRight}>
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigate('CreateEv')}
@@ -63,17 +69,54 @@ class LibraryList extends Component {
             />
           </TouchableOpacity>
         </View>
+        <View style={styles.containerLeft}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              AsyncStorage.removeItem('email').then(() => navigate('SignIn'));
+            }}
+          >
+            <Image
+              resizeMode="contain"
+              source={require('../../../../assets/img/Logout.png')}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.containerAct}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              this.props.evsGet();
+            }}
+          >
+            <Image
+              resizeMode="contain"
+              source={require('../../../../assets/img/act.png')}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  containerRight: {
     position: 'absolute',
-    left: 0,
     right: 5,
-    bottom: -40
+    bottom: 0
+  },
+  containerLeft: {
+    position: 'absolute',
+    left: 5,
+    bottom: 0
+  },
+  containerAct: {
+    position: 'absolute',
+    left: 5,
+    top: 0
   },
   button: {
     alignSelf: 'flex-end'

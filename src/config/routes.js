@@ -1,11 +1,12 @@
 import { StackNavigator, TabNavigator } from 'react-navigation';
-import Intro from '../components/Intro'; //I
+import Start from '../components/Start'; //I
 import EvList from '../components/event/display/EvList'; //L
 import EventAgenda from '../components/event/display/EventAgenda'; //A
 import EvDesc from '../components/event/display/EvDesc'; //D
 import LoginForm from '../components/login/LoginForm'; //LOGIN
 import EvCreate from '../components/event/modify/EvCreate'; //C
 import EvPicture from '../components/event/modify/EvPicture'; //P
+import Profile from '../components/login/Profile';
 
 export const DisplayEvs = TabNavigator({
   //1
@@ -13,7 +14,13 @@ export const DisplayEvs = TabNavigator({
     screen: EvList
   },
   EventAgenda: {
-    screen: EventAgenda
+    screen: EventAgenda,
+    navigationOptions: {
+      tabBarLabel: 'MyAgenda'
+    }
+  },
+  MyProfile: {
+    screen: Profile,
   }
 });
 
@@ -26,7 +33,6 @@ export const CreateEv = TabNavigator({
     screen: EvPicture
   }
 });
-
 
 export const DisplayEv = StackNavigator({
   //3
@@ -77,14 +83,32 @@ export const SignIn = StackNavigator({
   }
 });
 
-export const Root = StackNavigator(
+export const Begin = StackNavigator(
   //6
   {
     Intro: {
-      screen: Intro
+      screen: LoginForm
     },
     SignIn: {
       screen: SignIn,
+      navigationOptions: {
+        header: null
+      }
+    }
+  },
+  {
+    headerMode: 'none'
+  }
+);
+
+export const Root = StackNavigator(
+  //6
+  {
+    Start: {
+      screen: Start
+    },
+    Begin: {
+      screen: Begin,
       navigationOptions: {
         header: null
       }

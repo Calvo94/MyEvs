@@ -54,7 +54,9 @@ class EvPicture extends Component {
       >
         {this.img()}
         <CardSection>
-          <Button onPress={this.onValidatePress.bind(this)}>Create Event</Button>
+          <Button onPress={this.onValidatePress.bind(this)}>
+            Create Event
+          </Button>
         </CardSection>
       </PhotoUpload>
     );
